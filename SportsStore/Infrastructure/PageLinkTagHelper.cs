@@ -7,7 +7,8 @@ using SportsStore.Models.ViewModels;
 
 // Infrastruce folder is used to house other things not accomodated
 // by the models folder.
-// This particular Infrastructure class supplies Views with taghelpers.
+// This tag helper populates a div element 
+// with a elements that correspond to pages of products.
 namespace SportsStore.Infrastructure
 {
     // Use this attribute to further qualify the tag helper
