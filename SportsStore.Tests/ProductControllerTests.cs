@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SportsStore.Tests
@@ -28,14 +29,51 @@ namespace SportsStore.Tests
             controller.PageSize = 3;
 
             // Act
-            IEnumerable<Product> result =
-                controller.List(2).ViewData.Model as IEnumerable<Product>;
+            // Before Update
+            //IEnumerable<Product> result =
+            //    controller.List(2).ViewData.Model as IEnumerable<Product>;
+
+            // After wrapping data inside another view model type
+            ProductsListViewModel result =
+                controller.List(2).ViewData.Model as ProductsListViewModel;
 
             // Assert
-            Product[] prodArray = result.ToArray();
+            // Product[] prodArray = result.ToArray();
+            Product[] prodArray = result.Products.ToArray();
             Assert.True(prodArray.Length == 2);
             Assert.Equal("P4", prodArray[0].Name);
             Assert.Equal("P5", prodArray[1].Name);
+        }
+
+        // ...
+        // Ensure that updated Controller with the ViewModel class sends the correct
+        // pagination data to the view.
+        [Fact]
+        public void Can_Send_Pagination_View_Model()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[] {new Product {ProductID = 1, Name = "P1"},
+                new Product {ProductID = 2, Name = "P2"},
+                new Product {ProductID = 3, Name = "P3"},
+                new Product {ProductID = 4, Name = "P4"},
+                new Product {ProductID = 5, Name = "P5"}
+                }).AsQueryable<Product>());
+
+            // Arrange
+            ProductController controller =
+                new ProductController(mock.Object) { PageSize = 3 };
+
+            // Act
+            ProductsListViewModel result =
+                controller.List(2).ViewData.Model as ProductsListViewModel;
+
+            // Assert
+            PagingInfo pageInfo = result.PagingInfo;
+            Assert.Equal(2, pageInfo.CurrentPage);
+            Assert.Equal(3, pageInfo.ItemsPerPage);
+            Assert.Equal(5, pageInfo.TotalItems);
+            Assert.Equal(2, pageInfo.TotalPages);
         }
     }
 }

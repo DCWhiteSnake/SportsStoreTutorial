@@ -4,7 +4,7 @@ namespace SportsStore.Models.ViewModels
 {
     // This view model is used to pass information
     // about the number of pages to the view model.
-    public class PageInfo
+    public class PagingInfo
     {
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
