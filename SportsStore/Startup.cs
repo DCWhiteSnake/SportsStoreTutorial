@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Internal;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using SportsStore.Models;
 
 namespace SportsStore
@@ -30,20 +22,24 @@ namespace SportsStore
                         Configuration["Data:SportsStoreProducts:ConnectionString"]));//EFCore?
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc();//Sets up shared objects used in MVC applications.
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
-        {   
+        {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMvc(routes=>{
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "pagination",
+                    template: "Products/Page{productPage}",
+                    defaults: new { Controller = "Product", action = "List" });
+
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Product}/{action=List}/{id?}");
-            
+                        template: "{controller=Product}/{action=List}/{id?}");
             });
             SeedData.EnsurePopulated(app);
         }
