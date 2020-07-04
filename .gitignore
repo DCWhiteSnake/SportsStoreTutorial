@@ -129,7 +129,8 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
-
-
+#Bootstrap
+SportsStore/wwwroot/font-awesome
+SportsStore/wwwroot/twitter-bootstrap
 
 
