@@ -9,6 +9,8 @@ using SportsStore.Models.ViewModels;
 // by the models folder.
 // This tag helper populates a div element 
 // with a elements that correspond to pages of products.
+
+// Review Chapter 23, 24 and 25.
 namespace SportsStore.Infrastructure
 {
     // Use this attribute to further qualify the tag helper
@@ -27,13 +29,14 @@ namespace SportsStore.Infrastructure
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
         
-        public PageInfo PageModel { get; set; }
+        public PagingInfo PageModel { get; set; }
 
         public string PageAction { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context,
+                TagHelperOutput output)
         {
-            // Populate div with elements on each page.
+            // Populate div with page number as links on each page.
             // This is quite complex come back to this soon.
             // ***** _(^-^)_ *****
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
@@ -46,6 +49,7 @@ namespace SportsStore.Infrastructure
                 tag.InnerHtml.Append(i.ToString());
                 result.InnerHtml.AppendHtml(tag);
             }
+            output.Content.AppendHtml(result.InnerHtml);
         }
     }
 }

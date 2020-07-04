@@ -30,7 +30,7 @@ namespace SportsStore.Tests
             PageLinkTagHelper helper =
                     new PageLinkTagHelper(urlHelperFactory.Object)
                     {
-                        PageModel = new PageInfo
+                        PageModel = new PagingInfo
                         {
                             CurrentPage = 2,
                             TotalItems = 28,
