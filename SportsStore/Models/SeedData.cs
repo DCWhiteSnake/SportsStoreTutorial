@@ -19,10 +19,10 @@ namespace SportsStore.Models
                 context.Products.AddRange(
                 new Product
                 {
-                    Name = "Kayak",
-                    Description = "A boat for one person",
-                    Category = "Watersports",
-                    Price = 275
+                    Name = "Agbalumo",
+                    Description = "African star fruit",
+                    Category = "Fruit",
+                    Price = 2
                 },
                 new Product
                 {
