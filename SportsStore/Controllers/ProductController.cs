@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SportsStore.Controllers
 {
-    public class ProductController:Controller
+    public class ProductController : Controller
     {
         private IProductRepository repository;
         public int PageSize = 4;
@@ -23,10 +23,11 @@ namespace SportsStore.Controllers
         //        .Take(PageSize));
 
         // ***** With ViewModel ******.
-        public ViewResult List(int productPage = 1)
+        public ViewResult List(string category, int productPage = 1)
             => View(new ProductsListViewModel
             {
                 Products = repository.Products
+                    .Where(p => category == null || p.Category == category)
                     .OrderBy(p => p.ProductID)
                     .Skip((productPage - 1) * PageSize)
                     .Take(PageSize),
@@ -35,7 +36,8 @@ namespace SportsStore.Controllers
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
                     TotalItems = repository.Products.Count()
-                }
+                },
+                CurrentCategory = category
             });
     }
 }
