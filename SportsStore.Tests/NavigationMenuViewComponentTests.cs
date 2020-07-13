@@ -15,7 +15,7 @@ using Xunit;
 
 namespace SportsStore.Tests
 {
-    internal class NavigationMenuViewComponentTests
+    class NavigationMenuViewComponentTests
     {
         [Fact]
         public void Can_Select_Categories()
