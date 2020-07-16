@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using SportsStore.Models;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SportsStore.Components
 {
