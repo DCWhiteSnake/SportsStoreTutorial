@@ -7,7 +7,8 @@ using SportsStore.Models.ViewModels;
 using System.Collections.Generic;
 
 // Infrastruce folder is used to house other things not accomodated
-// by the models folder.
+// by the models folder (i.e taghelpers)
+
 // This tag helper populates a div element 
 // with a elements that correspond to pages of products.
 
