@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Order>
-
+@{ 
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Orders";
+}
 
 @if (Model.Count() > 0)
 {
